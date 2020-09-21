@@ -1,0 +1,7 @@
+deploymentBucket:
+  serverless-deploys-packages
+
+# Para as possíveis configurações de subscrições acessar: https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html
+configSubscription:
+  - Endpoint: rick_gabriel2009@hotmail.com
+    Protocol: email

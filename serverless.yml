@@ -1,0 +1,22 @@
+# Criação: serverless deploy --stage=dev --aws-profile <Usuário  AWS> -v
+service: api-core-topics
+
+frameworkVersion: ">=1.0.0 <2.0.0"
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1 # Usually we use us-east-1
+
+  deploymentBucket:
+    name: ${file(./serverless-env.yml):deploymentBucket} # bucket name where we upload the cloudformation generated
+
+# Para mais parâmetros acessar https://docs.aws.amazon.com/pt_br/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-subscription
+resources:
+  Resources:
+    topicName:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: topicName-${self:provider.stage}
+        TopicName: topicName-${self:provider.stage}
+        Subscription: ${file(./serverless-env.yml):configSubscription}
